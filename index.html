@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 class="title">Inventory</h1>
+
+    <div class="content">
+      <form id="add-item-form">
+        <input type="text" name="name" placeholder="Name">
+        <input type="number" name="amount" placeholder="Amount">
+        <button>Submit</button>
+      </form>
+
+      <ul id="item-list"></ul>
+    </div>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCbHoUoaggkB4AJtNMaLW_6368enhfQlEs",
+        authDomain: "dsc-list-test.firebaseapp.com",
+        databaseURL: "https://dsc-list-test.firebaseio.com",
+        projectId: "dsc-list-test",
+        storageBucket: "dsc-list-test.appspot.com",
+        messagingSenderId: "567201476785",
+        appId: "1:567201476785:web:aeb8befc81dee608c27290",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>
