@@ -5,22 +5,21 @@ const renderList = (doc) => {
   const item = document.createElement("li");
   const name = document.createElement("span");
   const quantity = document.createElement("span");
-  const close = document.createElement("button");
+  const remove = document.createElement("button");
 
   item.setAttribute("data-id", doc.id);
   name.textContent = doc.data().name;
   quantity.textContent = "Qty: " + doc.data().quantity;
-  close.textContent = "Remove";
+  remove.textContent = "Remove";
 
   item.appendChild(name);
   item.appendChild(quantity);
-  item.appendChild(close);
+  item.appendChild(remove);
 
   itemList.appendChild(item);
 
-  // deleting data
-  close.addEventListener("click", (e) => {
-    let id = e.target.parentElement.getAttribute("data-id");
+  remove.addEventListener("click", (e) => {
+    const id = e.target.parentElement.getAttribute("data-id");
     db.collection("items").doc(id).delete();
   });
 };
@@ -43,14 +42,15 @@ form.addEventListener("submit", (e) => {
   form.quantity.value = "";
 });
 
-db.collection("items").onSnapshot((snapshot) => {
-  let changes = snapshot.docChanges();
-  changes.forEach((change) => {
-    if (change.type == "added") {
+db.collection("items").onSnapshot(snapshot => {
+  const changes = snapshot.docChanges();
+
+  changes.forEach(change => {
+    if (change.type === "added") {
       renderList(change.doc);
-    } else if (change.type == "removed") {
-      let li = itemList.querySelector("[data-id=" + change.doc.id + "]");
-      itemList.removeChild(li);
+    } else if (change.type === "removed") {
+      const item = itemList.querySelector("[data-id=" + change.doc.id + "]");
+      itemList.removeChild(item);
     }
-  });
-});
+  })
+})
