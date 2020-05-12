@@ -1,7 +1,8 @@
 const itemList = document.getElementById("item-list");
 const form = document.getElementById("add-item-form");
 
-renderItem = doc => {
+// function for rendering item
+const renderItem = doc => {
   const item = document.createElement("li");
   const name = document.createElement("span");
   const quantity = document.createElement("span");
@@ -24,12 +25,14 @@ renderItem = doc => {
   })
 }
 
+// non-real-time method of getting data
 // db.collection('items').orderBy("name", "desc").get().then(snapshot => {
 //   snapshot.docs.forEach(doc => {
 //     renderItem(doc);
 //   })
 // })
 
+// method for adding data
 form.addEventListener("submit", e => {
   e.preventDefault();
   db.collection("items").add({
@@ -40,6 +43,7 @@ form.addEventListener("submit", e => {
   form.quantity.value = "";
 })
 
+// real-time method for getting data
 db.collection("items").onSnapshot(snapshot => {
   const changes = snapshot.docChanges();
 
