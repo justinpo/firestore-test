@@ -1,7 +1,7 @@
 const itemList = document.getElementById("item-list");
 const form = document.getElementById("add-item-form");
 
-const renderList = (doc) => {
+const renderItem = (doc) => {
   const item = document.createElement("li");
   const name = document.createElement("span");
   const quantity = document.createElement("span");
@@ -28,7 +28,7 @@ const renderList = (doc) => {
 //   .get()
 //   .then((snapshot) => {
 //     snapshot.docs.forEach((doc) => {
-//       renderList(doc);
+//       renderItem(doc);
 //     });
 //   });
 
@@ -47,7 +47,7 @@ db.collection("items").onSnapshot(snapshot => {
 
   changes.forEach(change => {
     if (change.type === "added") {
-      renderList(change.doc);
+      renderItem(change.doc);
     } else if (change.type === "removed") {
       const item = itemList.querySelector("[data-id=" + change.doc.id + "]");
       itemList.removeChild(item);
